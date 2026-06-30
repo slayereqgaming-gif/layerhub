@@ -1,9 +1,13 @@
+### 2. Kompletny kod do pliku `templates/community.html`
+Zastąp **cały** stary kod w pliku `community.html` poniższym (tutaj link jest już w pełni aktywny i pobiera plik z folderu static):
+
+```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LayerHub - Community Space</title>
+    <title>LayerHub - Strefa Społeczności</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -22,61 +26,39 @@
             color: #10b981;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1em;
         }
         .nav a:hover { text-shadow: 0 0 8px #10b981; }
         
         .container {
-            max-width: 1100px;
-            margin: 40px auto;
+            max-width: 800px;
+            margin: 60px auto;
             padding: 0 20px;
             text-align: center;
         }
-        .welcome-heading {
-            color: #10b981;
-            text-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
-            margin-bottom: 30px;
-        }
-        
-        /* Styl dla siatki z 9 projektami */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
-        }
-        .project-card {
+        .community-box {
             background-color: #111827;
+            padding: 40px;
+            border-radius: 12px;
             border: 1px solid #1f2937;
-            border-top: 4px solid #047857;
-            border-radius: 10px;
-            padding: 25px;
+            border-top: 5px solid #10b981;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        h1 { color: #10b981; }
+        
+        .download-zone {
+            margin-top: 30px;
+            padding: 30px;
+            background-color: #0d131f;
+            border: 1px solid #047857;
+            border-radius: 8px;
             text-align: left;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            transition: all 0.3s;
-        }
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-top-color: #10b981;
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15);
-        }
-        .project-card h3 {
-            color: #10b981;
-            margin-top: 0;
-            font-size: 1.3em;
-        }
-        .project-card p {
-            color: #94a3b8;
-            font-size: 0.95em;
-            line-height: 1.5;
         }
         .download-btn {
             display: block;
             text-align: center;
-            background-color: #1f2937;
-            color: #10b981;
-            border: 1px solid #047857;
-            padding: 10px;
+            background-color: #047857;
+            color: white;
+            padding: 12px;
             margin-top: 15px;
             border-radius: 6px;
             text-decoration: none;
@@ -85,86 +67,29 @@
         }
         .download-btn:hover {
             background-color: #10b981;
-            color: white;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
         }
     </style>
 </head>
 <body>
 
     <div class="nav">
-        <a href="/">← Back to Home</a>
+        <a href="/">← Powrót do Strony Głównej</a>
     </div>
 
     <div class="container">
-        <h1 class="welcome-heading">Welcome, {{ user }}! 🎉</h1>
-        <p style="font-size: 1.2em; color: #a7f3d0;">Oto 9 podstawowych plików i schematów na Twoją drukarkę 3D:</p>
-        
-        <!-- SIATKA NA 9 PROJEKTÓW -->
-        <div class="projects-grid">
+        <div class="community-box">
+            <h1>Witaj w Społeczności LayerHub, {{ user }}! 🎉</h1>
+            <p>Dostęp autoryzowany. Twoje linki do pobierania zostały pomyślnie odblokowane.</p>
             
-            <!-- Projekt 1 -->
-            <div class="project-card">
-                <h3>01. Kostka Kalibracyjna 20x20</h3>
-                <p>Podstawowy test dokładności wymiarowej Twojej drukarki w osiach X, Y, Z. Pozwala sprawdzić poprawność kroków silnika.</p>
-                <a href="#" class="download-btn">Download .STL</a>
+            <!-- AKTYWNA STREFA POBIERANIA TWOJEGO PLIKU -->
+            <div class="download-zone">
+                <h3 style="color: #10b981; margin-top: 0;">📦 Twój Projekt: lodka.stl</h3>
+                <p style="color: #94a3b8; font-size: 0.95em;">Plik jest gotowy do pobrania. Kliknij poniższy przycisk, aby zapisać model bezpośrednio na swoim dysku.</p>
+                
+                <!-- Prawdziwy link pobierający plik z folderu static -->
+                <a href="/static/lodka.stl" download class="download-btn">Pobierz plik lodka.stl</a>
             </div>
-
-            <!-- Projekt 2 -->
-            <div class="project-card">
-                <h3>02. Łódeczka 3DBenchy</h3>
-                <p>Legendarny test dla każdej nowej maszyny. Sprawdza zwisy, mosty, chłodzenie filamentu oraz retrakcję ekstrudera.</p>
-                <a href="#" class="download-btn">Download .STL</a>
-            </div>
-
-            <!-- Projekt 3 -->
-            <div class="project-card">
-                <h3>03. Test Retrakcji (Stringing Test)</h3>
-                <p>Szybki schemat pozwalający wyeliminować irytujące nitkowanie filamentu podczas przemieszczania się głowicy.</p>
-                <a href="#" class="download-btn">Download .STL</a>
-            </div>
-
-            <!-- Projekt 4 -->
-            <div class="project-card">
-                <h3>04. Wieża Temperatur (Temp Tower)</h3>
-                <p>Pozwala dobrać idealną temperaturę dyszy dla nowego zwoju PLA/PETG poprzez zmianę ciepła na poszczególnych piętrach.</p>
-                <a href="#" class="download-btn">Download .GCODE</a>
-            </div>
-
-            <!-- Projekt 5 -->
-            <div class="project-card">
-                <h3>05. Organizator na Karty SD</h3>
-                <p>Praktyczny gadżet na biurko, który pozwoli utrzymać porządek w Twoich kartach pamięci oraz czytnikach USB.</p>
-                <a href="#" class="download-btn">Download .STL</a>
-            </div>
-
-            <!-- Projekt 6 -->
-            <div class="project-card">
-                <h3>06. Klips do Filamentu</h3>
-                <p>Niezbędny element zabezpieczający końcówkę filamentu na szpuli przed splątaniem podczas przechowywania.</p>
-                <a href="#" class="download-btn">Download .STL</a>
-            </div>
-
-            <!-- Projekt 7 -->
-            <div class="project-card">
-                <h3>07. Elastyczny Jaszczur (Articulated Gecko)</h3>
-                <p>Świetny test druku ruchomych elementów w jednym procesie (print-in-place) bez użycia podpór.</p>
-                <a href="#" class="download-btn">Download .STL</a>
-            </div>
-
-            <!-- Projekt 8 -->
-            <div class="project-card">
-                <h3>08. Skrobaczka do Stołu</h3>
-                <p>Narzędzie ułatwiające bezpieczne zdejmowanie gotowych wydruków z podgrzewanej platformy roboczej.</p>
-                <a href="#" class="download-btn">Download .STL</a>
-            </div>
-
-            <!-- Projekt 9 -->
-            <div class="project-card">
-                <h3>09. Przymiar do Pasowań (Tolerance Test)</h3>
-                <p>Schemat sprawdzający, jak małe szczeliny potrafi utrzymać Twoja drukarka, zanim elementy zlepią się ze sobą.</p>
-                <a href="#" class="download-btn">Download .STL</a>
-            </div>
-
         </div>
     </div>
 
