@@ -1,9 +1,11 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 
 app = Flask(__name__)
 
-# Nazwa pliku tekstowego, który będzie trzymał konta na dysku
+# KLUCZ SZYFRUJĄCY SESJĘ (Niezbędny do zapamiętania zalogowanego konta)
+app.secret_key = "super_tajny_klucz_layerhub_2026!"
+
 DB_FILE = "users.txt"
 
 def load_users():
@@ -23,12 +25,13 @@ def save_user(nickname, password):
     with open(DB_FILE, "a", encoding="utf-8") as f:
         f.write(f"{nickname}:{password}\n")
 
-# Naprawione ścieżki: teraz telefon wejdzie bez błędu 404
 @app.route('/')
 @app.route('/index')
 def home():
     error_msg = request.args.get('error')
-    return render_template('index.html', error=error_msg)
+    # Sprawdzamy, czy w przeglądarce jest aktywna sesja zalogowanego użytkownika
+    zalogowany_uzytkownik = session.get('user')
+    return render_template('index.html', error=error_msg, current_user=zalogowany_uzytkownik)
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -40,12 +43,16 @@ def register():
         uzytkownicy = load_users()
         
         if nickname in uzytkownicy:
-            return redirect(url_for('home', error="This nickname is already taken!"))
+            return redirect(url_for('home', error="Ta nazwa użytkownika jest już zajęta!"))
             
+        # Zapisujemy konto do pliku users.txt
         save_user(nickname, password)
-        return redirect(url_for('community', user=nickname))
         
-    return redirect(url_for('home'))
+        # Logujemy automatycznie do sesji i przenosimy na stronę główną
+        session['user'] = nickname
+        return redirect(url_for('home'))
+        
+    return redirect(url_for('home', error="Uzupełnij wszystkie pola!"))
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -55,14 +62,16 @@ def login():
     uzytkownicy = load_users()
     
     if nickname in uzytkownicy and uzytkownicy[nickname] == password:
-        return redirect(url_for('community', user=nickname))
+        session['user'] = nickname
+        return redirect(url_for('home'))
     else:
-        return redirect(url_for('home', error="Invalid nickname or password!"))
+        return redirect(url_for('home', error="Nieprawidłowa nazwa użytkownika lub hasło!"))
 
-@app.route('/community')
-def community():
-    nazwa_uzytkownika = request.args.get('user', 'Gość')
-    return render_template('community.html', user=nazwa_uzytkownika)
+@app.route('/logout')
+def logout():
+    """Wylogowanie użytkownika."""
+    session.pop('user', None)
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run(debug=True)
