@@ -30,12 +30,15 @@
             opacity: 0.8;
             font-size: 1.1em;
         }
-        .signup-btn {
+        /* Kontener na przyciski w prawym górnym rogu */
+        .auth-buttons {
             position: absolute;
             top: 25px;
             right: 30px;
-            background-color: #007acc;
-            color: white;
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
             border: none;
             padding: 10px 20px;
             font-size: 1em;
@@ -43,10 +46,13 @@
             border-radius: 6px;
             cursor: pointer;
             transition: background 0.2s;
+            color: white;
         }
-        .signup-btn:hover {
-            background-color: #005999;
-        }
+        .login-btn { background-color: #475569; }
+        .login-btn:hover { background-color: #334155; }
+        .signup-btn { background-color: #007acc; }
+        .signup-btn:hover { background-color: #005999; }
+        
         .container {
             max-width: 800px;
             margin: 40px auto;
@@ -58,6 +64,14 @@
             border-radius: 12px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.05);
             border-top: 5px solid #007acc;
+        }
+        .error-msg {
+            background-color: #fee2e2;
+            color: #991b1b;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
         .modal {
             display: none; 
@@ -88,36 +102,14 @@
             cursor: pointer;
             color: #666;
         }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 1em;
-        }
-        .submit-btn {
-            width: 100%;
-            background-color: #10b981;
-            color: white;
-            border: none;
-            padding: 12px;
-            font-size: 1.1em;
-            font-weight: bold;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-        .submit-btn:hover {
-            background-color: #059669;
-        }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group input { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; font-size: 1em; }
+        .submit-btn { width: 100%; color: white; border: none; padding: 12px; font-size: 1.1em; font-weight: bold; border-radius: 6px; cursor: pointer; }
+        .submit-signup { background-color: #10b981; }
+        .submit-signup:hover { background-color: #059669; }
+        .submit-login { background-color: #007acc; }
+        .submit-login:hover { background-color: #005999; }
     </style>
 </head>
 <body>
@@ -125,42 +117,69 @@
     <header>
         <h1>LayerHub.pl</h1>
         <p>Twoja baza blueprintów i projektów na drukarki 3D</p>
-        <button class="signup-btn" onclick="openModal()">Sign Up</button>
+        <div class="auth-buttons">
+            <button class="btn login-btn" onclick="openModal('loginModal')">Login</button>
+            <button class="btn signup-btn" onclick="openModal('signUpModal')">Sign Up</button>
+        </div>
     </header>
 
     <div class="container">
+        <!-- Wyświetlanie błędów, jeśli Python je odeśle -->
+        {% if error %}
+            <div class="error-msg">{{ error }}</div>
+        {% endif %}
+
         <div class="welcome-box">
             <h2>Witaj na LayerHub!</h2>
-            <p>Zarejestruj się używając przycisku w prawym górnym rogu, aby uzyskać dostęp do strefy Community.</p>
+            <p>Zaloguj się lub zarejestruj, aby uzyskać dostęp do strefy Community z projektami.</p>
         </div>
     </div>
 
-    <!-- Okienko logowania/rejestracji (Modal) -->
+    <!-- MODAL REJESTRACJI -->
     <div id="signUpModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <span class="close-btn" onclick="closeModal('signUpModal')">&times;</span>
             <h2 style="margin-top: 0; color: #1e293b;">Create Account</h2>
-            
             <form action="/register" method="POST">
                 <div class="form-group">
-                    <label for="nickname">Nickname:</label>
-                    <input type="text" id="nickname" name="nickname" required placeholder="Enter nickname">
+                    <label for="reg-nickname">Nickname:</label>
+                    <input type="text" id="reg-nickname" name="nickname" required placeholder="Enter nickname">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required placeholder="Enter password">
+                    <label for="reg-password">Password:</label>
+                    <input type="password" id="reg-password" name="password" required placeholder="Enter password">
                 </div>
-                <button type="submit" class="submit-btn">Sign Up</button>
+                <button type="submit" class="submit-btn submit-signup">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL LOGOWANIA -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
+            <h2 style="margin-top: 0; color: #1e293b;">Sign In</h2>
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label for="log-nickname">Nickname:</label>
+                    <input type="text" id="log-nickname" name="nickname" required placeholder="Enter your nickname">
+                </div>
+                <div class="form-group">
+                    <label for="log-password">Password:</label>
+                    <input type="password" id="log-password" name="password" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="submit-btn submit-login">Login</button>
             </form>
         </div>
     </div>
 
     <script>
-        function openModal() { document.getElementById("signUpModal").style.display = "block"; }
-        function closeModal() { document.getElementById("signUpModal").style.display = "none"; }
+        function openModal(id) { document.getElementById(id).style.display = "block"; }
+        function closeModal(id) { document.getElementById(id).style.display = "none"; }
         window.onclick = function(event) {
-            var modal = document.getElementById("signUpModal");
-            if (event.target == modal) { modal.style.display = "none"; }
+            if (event.target.className === 'modal') {
+                event.target.style.display = "none";
+            }
         }
     </script>
 
