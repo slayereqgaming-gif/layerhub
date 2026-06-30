@@ -122,9 +122,6 @@
             text-align: left;
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
         .project-card:hover {
             transform: translateY(-5px);
@@ -142,27 +139,26 @@
             line-height: 1.5;
             margin-bottom: 10px;
         }
-        /* Styl dla miniaturki zdjęcia */
+        .project-link {
+            display: block;
+            font-size: 0.75em;
+            color: #4b5563;
+            text-decoration: none;
+            margin-bottom: 15px;
+            word-break: break-all;
+        }
+        .project-link:hover {
+            color: #10b981;
+            text-decoration: underline;
+        }
         .project-img {
             width: 100%;
-            height: 160px;
+            height: auto;
+            max-height: 180px;
             object-fit: cover;
             border-radius: 6px;
             margin-bottom: 15px;
             border: 1px solid #1f2937;
-        }
-        /* Styl dla linku źródłowego */
-        .source-link {
-            font-size: 0.75em;
-            color: #4b5563;
-            text-decoration: none;
-            word-break: break-all;
-            display: block;
-            margin-bottom: 10px;
-        }
-        .source-link:hover {
-            color: #10b981;
-            text-decoration: underline;
         }
         .download-btn {
             display: block;
@@ -171,7 +167,6 @@
             color: #10b981;
             border: 1px solid #047857;
             padding: 10px;
-            margin-top: auto;
             border-radius: 6px;
             text-decoration: none;
             font-weight: bold;
@@ -250,29 +245,27 @@
         <p style="color: #a7f3d0; margin-bottom: 30px;">Przeglądaj darmową bazę projektów startowych:</p>
         
         <div class="projects-grid">
-            <!-- KARTA TWOJEJ ŁÓDKI Z MINIATURKĄ I LINKIEM ŹRÓDŁOWYM -->
+            <!-- PROJEKT 01: ŁÓDKA ZE ZDJĘCIEM .JPG I LINKIEM Z THINGIVERSE -->
             <div class="project-card">
-                <div>
-                    <h3>01. Łódka</h3>
-                    <img src="/static/lodka.jpg" alt="Łódka 3D" class="project-img">
-                    <p>Twój osobisty, szczegółowy model 3D wgrany do systemu. Zaloguj się, aby odblokować pobieranie.</p>
-                    <a href="https://thingiverse.com" target="_blank" class="source-link">https://thingiverse.com</a>
-                </div>
+                <h3>01. Łódka</h3>
+                <!-- Miniaturka z rozszerzeniem .jpg -->
+                <img src="/static/lodka.jpg" alt="Łódka 3D" class="project-img">
+                <p>Twój osobisty, szczegółowy model 3D wgrany do systemu. Zaloguj się, aby odblokować pobieranie.</p>
+                <a href="https://thingiverse.com" target="_blank" class="project-link">https://thingiverse.com</a>
                 <div class="download-btn" onclick="openModal('loginModal')">Pobierz .STL (Wymaga logowania)</div>
             </div>
 
-            <!-- Reszta projektów demonstracyjnych -->
+            <!-- Pozostałe projekty demonstracyjne -->
             <div class="project-card">
-                <div>
-                    <h3>02. Kostka Kalibracyjna 20x20</h3>
-                    <p>Podstawowy test dokładności wymiarowej Twojej drukarki w osiach X, Y, Z. Pozwala sprawdzić poprawność kroków silnika.</p>
-                </div>
+                <h3>02. Kostka Kalibracyjna 20x20</h3>
+                <p>Podstawowy test dokładności wymiarowej Twojej drukarki w osiach X, Y, Z. Pozwala sprawdzić poprawność kroków silnika.</p>
                 <div class="download-btn" onclick="openModal('loginModal')">Pobierz .STL (Wymaga logowania)</div>
             </div>
             <div class="project-card">
-                <div>
-                    <h3>03. Test Retrakcji (Stringing)</h3>
-                    <p>Szybki schemat pozwalający wyeliminować irytujące nitkowanie filamentu podczas przemieszczania się głowicy.</p>
-                </div>
+                <h3>03. Test Retrakcji (Stringing)</h3>
+                <p>Szybki schemat pozwalający wyeliminować irytujące nitkowanie filamentu podczas przemieszczania się głowicy.</p>
                 <div class="download-btn" onclick="openModal('loginModal')">Pobierz .STL (Wymaga logowania)</div>
             </div>
+            <div class="project-card">
+                <h3>04. Wieża Temperatur</h3>
+                <p>Pozwala dobrać idealną temperaturę dyszy dla nowego zwoju PLA/PETG poprzez zmianę ciepła na poszczególnych piętrach.</p>
