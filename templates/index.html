@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,11 +60,13 @@
         .signup-btn:hover { background-color: #059669; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); }
         
         .container {
-            max-width: 800px;
+            max-width: 1100px;
             margin: 40px auto;
             padding: 0 20px;
         }
         .welcome-box {
+            max-width: 800px;
+            margin: 0 auto 50px auto;
             background: #111827; /* Ciemny grafit */
             padding: 40px;
             border-radius: 12px;
@@ -100,7 +102,63 @@
             margin-bottom: 20px;
             border: 1px solid #b91c1c;
         }
-        /* Modal Styles */
+
+        /* Sekcja z projektami */
+        .projects-heading {
+            color: #10b981;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+            margin-top: 20px;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .project-card {
+            background-color: #111827;
+            border: 1px solid #1f2937;
+            border-top: 4px solid #047857;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-top-color: #10b981;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15);
+        }
+        .project-card h3 {
+            color: #10b981;
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+        .project-card p {
+            color: #94a3b8;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        .download-btn {
+            display: block;
+            text-align: center;
+            background-color: #1f2937;
+            color: #10b981;
+            border: 1px solid #047857;
+            padding: 10px;
+            margin-top: 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+        .download-btn:hover {
+            background-color: #10b981;
+            color: white;
+        }
+
+        /* Style dla wyskakujących okienek (Modale) */
         .modal {
             display: none; 
             position: fixed;
@@ -161,60 +219,50 @@
 
         <div class="welcome-box">
             <h2 style="color: #10b981; margin-top: 0;">Witaj na LayerHub!</h2>
-            <p>Zaloguj się lub zarejestruj, aby uzyskać pełny dostęp do strefy pobierania modeli 3D.</p>
-            
-            <!-- Nowy przycisk otwierający okno rejestracji, zachęcający do sprawdzenia plików -->
-            <button class="explore-btn" onclick="openModal('signUpModal')">Explore Basic Projects</button>
+            <p>Zaloguj się lub zarejestruj, aby uzyskać ekskluzywny dostęp do strefy Community z ukrytymi materiałami.</p>
+            <button class="explore-btn" onclick="document.getElementById('projekty').scrollIntoView({ behavior: 'smooth' })">Poznaj podstawowe projekty</button>
         </div>
-    </div>
 
-    <!-- MODAL REJESTRACJI -->
-    <div id="signUpModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('signUpModal')">&times;</span>
-            <h2 style="margin-top: 0; color: #10b981;">Create Account</h2>
-            <form action="/register" method="POST">
-                <div class="form-group">
-                    <label for="reg-nickname">Nickname:</label>
-                    <input type="text" id="reg-nickname" name="nickname" required placeholder="Enter nickname">
-                </div>
-                <div class="form-group">
-                    <label for="reg-password">Password:</label>
-                    <input type="password" id="reg-password" name="password" required placeholder="Enter password">
-                </div>
-                <button type="submit" class="submit-btn submit-signup">Sign Up</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL LOGOWANIA -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
-            <h2 style="margin-top: 0; color: #10b981;">Sign In</h2>
-            <form action="/login" method="POST">
-                <div class="form-group">
-                    <label for="log-nickname">Nickname:</label>
-                    <input type="text" id="log-nickname" name="nickname" required placeholder="Enter your nickname">
-                </div>
-                <div class="form-group">
-                    <label for="log-password">Password:</label>
-                    <input type="password" id="log-password" name="password" required placeholder="Enter your password">
-                </div>
-                <button type="submit" class="submit-btn submit-login">Login</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        function openModal(id) { document.getElementById(id).style.display = "block"; }
-        function closeModal(id) { document.getElementById(id).style.display = "none"; }
-        window.onclick = function(event) {
-            if (event.target.className === 'modal') {
-                event.target.style.display = "none";
-            }
-        }
-    </script>
-
-</body>
-</html>
+        <!-- SEKCJA DOSTĘPNA DLA KAŻDEGO BEZ LOGOWANIA -->
+        <h2 id="projekty" class="projects-heading">Podstawowe pliki i schematy 3D</h2>
+        <p style="color: #a7f3d0; margin-bottom: 30px;">Przeglądaj darmową bazę projektów startowych:</p>
+        
+        <div class="projects-grid">
+            <!-- Projekt 1 -->
+            <div class="project-card">
+                <h3>01. Kostka Kalibracyjna 20x20</h3>
+                <p>Podstawowy test dokładności wymiarowej Twojej drukarki w osiach X, Y, Z. Pozwala sprawdzić poprawność kroków silnika.</p>
+                <a href="#" class="download-btn">Download .STL</a>
+            </div>
+            <!-- Projekt 2 -->
+            <div class="project-card">
+                <h3>02. Łódeczka 3DBenchy</h3>
+                <p>Legendarny test dla każdej nowej maszyny. Sprawdza zwisy, mosty, chłodzenie filamentu oraz retrakcję ekstrudera.</p>
+                <a href="#" class="download-btn">Download .STL</a>
+            </div>
+            <!-- Projekt 3 -->
+            <div class="project-card">
+                <h3>03. Test Retrakcji (Stringing)</h3>
+                <p>Szybki schemat pozwalający wyeliminować irytujące nitkowanie filamentu podczas przemieszczania się głowicy.</p>
+                <a href="#" class="download-btn">Download .STL</a>
+            </div>
+            <!-- Projekt 4 -->
+            <div class="project-card">
+                <h3>04. Wieża Temperatur</h3>
+                <p>Pozwala dobrać idealną temperaturę dyszy dla nowego zwoju PLA/PETG poprzez zmianę ciepła na poszczególnych piętrach.</p>
+                <a href="#" class="download-btn">Download .GCODE</a>
+            </div>
+            <!-- Projekt 5 -->
+            <div class="project-card">
+                <h3>05. Organizator na Karty SD</h3>
+                <p>Praktyczny gadżet na biurko, który pozwoli utrzymać porządek w Twoich kartach pamięci oraz czytnikach USB.</p>
+                <a href="#" class="download-btn">Download .STL</a>
+            </div>
+            <!-- Projekt 6 -->
+            <div class="project-card">
+                <h3>06. Klips do Filamentu</h3>
+                <p>Niezbędny element zabezpieczający końcówkę filamentu na szpuli przed splątaniem podczas przechowywania.</p>
+                <a href="#" class="download-btn">Download .STL</a>
+            </div>
+            <!-- Projekt 7 -->
+            <div class="project-card">
