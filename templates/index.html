@@ -1,22 +1,168 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sklej.to</title>
+    <title>LayerHub.pl - Modele i Blueprinty 3D</title>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #f4f4f9; }
-        .box { background: white; padding: 20px; display: inline-block; border-radius: 8px; box-shadow: 0px 4px 6px rgba(0,0,0,0.1); }
-        h1 { color: #333; }
-        p { color: #666; font-size: 18px; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #1e293b;
+            color: white;
+            padding: 30px 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+        }
+        header p {
+            margin: 10px 0 0 0;
+            opacity: 0.8;
+            font-size: 1.1em;
+        }
+        .signup-btn {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .signup-btn:hover {
+            background-color: #005999;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .welcome-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+            border-top: 5px solid #007acc;
+        }
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            text-align: left;
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        .submit-btn {
+            width: 100%;
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #059669;
+        }
     </style>
 </head>
 <body>
-    <div class="box">
-        <h1>Witaj na stronie!</h1>
-        <!-- Tutaj Python wstawi dane przekazane z backendu -->
-        <p>{{ tekst_z_pythona }}</p>
-        <p>Aktualny czas serwera: <strong>{{ czas }}</strong></p>
+
+    <header>
+        <h1>LayerHub.pl</h1>
+        <p>Twoja baza blueprintów i projektów na drukarki 3D</p>
+        <button class="signup-btn" onclick="openModal()">Sign Up</button>
+    </header>
+
+    <div class="container">
+        <div class="welcome-box">
+            <h2>Witaj na LayerHub!</h2>
+            <p>Zarejestruj się używając przycisku w prawym górnym rogu, aby uzyskać dostęp do strefy Community.</p>
+        </div>
     </div>
+
+    <!-- Okienko logowania/rejestracji (Modal) -->
+    <div id="signUpModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 style="margin-top: 0; color: #1e293b;">Create Account</h2>
+            
+            <form action="/register" method="POST">
+                <div class="form-group">
+                    <label for="nickname">Nickname:</label>
+                    <input type="text" id="nickname" name="nickname" required placeholder="Enter nickname">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required placeholder="Enter password">
+                </div>
+                <button type="submit" class="submit-btn">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal() { document.getElementById("signUpModal").style.display = "block"; }
+        function closeModal() { document.getElementById("signUpModal").style.display = "none"; }
+        window.onclick = function(event) {
+            var modal = document.getElementById("signUpModal");
+            if (event.target == modal) { modal.style.display = "none"; }
+        }
+    </script>
+
 </body>
 </html>
