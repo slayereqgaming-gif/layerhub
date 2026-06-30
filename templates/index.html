@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LayerHub.pl - Modele i Blueprinty 3D</title>
+    <title>LayerHub - Modele i Blueprinty 3D</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -39,6 +39,11 @@
             right: 30px;
             display: flex;
             gap: 12px;
+            align-items: center;
+        }
+        .user-welcome {
+            color: #a7f3d0;
+            font-weight: bold;
         }
         .btn {
             border: none;
@@ -49,6 +54,7 @@
             cursor: pointer;
             transition: all 0.2s;
             color: white;
+            text-decoration: none;
         }
         .login-btn { 
             background-color: #1f2937; 
@@ -58,6 +64,8 @@
         .login-btn:hover { background-color: #047857; color: white; }
         .signup-btn { background-color: #10b981; }
         .signup-btn:hover { background-color: #059669; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); }
+        .logout-btn { background-color: #7f1d1d; border: 1px solid #b91c1c; color: #fca5a5; }
+        .logout-btn:hover { background-color: #b91c1c; color: white; }
         
         .container {
             max-width: 1100px;
@@ -139,21 +147,6 @@
             line-height: 1.5;
             margin-bottom: 5px;
         }
-        .project-card img {
-            display: block;
-            max-width: 100%;
-            height: auto;
-            border-radius: 6px;
-            margin: 15px 0;
-            border: 1px solid #047857;
-        }
-        .project-card span {
-            display: block;
-            font-size: 0.75em;
-            color: #64748b;
-            margin-bottom: 15px;
-            word-break: break-all;
-        }
         .download-btn {
             display: block;
             text-align: center;
@@ -166,11 +159,37 @@
             font-weight: bold;
             transition: all 0.2s;
             cursor: pointer;
+            margin-top: 15px;
         }
         .download-btn:hover {
             background-color: #10b981;
             color: white;
         }
+        
+        /* NOWA SEKCJA ZARABIANIA */
+        .earn-box {
+            background-color: #111c17;
+            border: 1px solid #047857;
+            padding: 40px;
+            border-radius: 12px;
+            margin-top: 60px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            border-top: 5px solid #10b981;
+        }
+        .earn-box h2 {
+            color: #10b981;
+            margin-top: 0;
+            font-size: 2em;
+        }
+        .earn-box p {
+            color: #a7f3d0;
+            max-width: 700px;
+            margin: 15px auto 25px auto;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        /* MODALE */
         .modal {
             display: none; 
             position: fixed;
@@ -216,11 +235,17 @@
 <body>
 
     <header>
-        <h1>LayerHub.pl</h1>
+        <!-- POPRAWIONO: Zmiana z LayerHub.pl na LayerHub -->
+        <h1>LayerHub</h1>
         <p>Twoja baza blueprintów i projektów na drukarki 3D</p>
         <div class="auth-buttons">
-            <button class="btn login-btn" onclick="openModal('loginModal')">Login</button>
-            <button class="btn signup-btn" onclick="openModal('signUpModal')">Sign Up</button>
+            {% if current_user %}
+                <span class="user-welcome">Witaj, {{ current_user }}!</span>
+                <a href="/logout" class="btn logout-btn">Wyloguj</a>
+            {% else %}
+                <button class="btn login-btn" onclick="openModal('loginModal')">Login</button>
+                <button class="btn signup-btn" onclick="openModal('signUpModal')">Sign Up</button>
+            {% endif %}
         </div>
     </header>
 
@@ -231,42 +256,30 @@
 
         <div class="welcome-box">
             <h2 style="color: #10b981; margin-top: 0;">Witaj na LayerHub!</h2>
-            <p>Zaloguj się lub zarejestruj, aby uzyskać ekskluzywny dostęp do strefy Community z ukrytymi materiałami.</p>
-            <button class="explore-btn" onclick="document.getElementById('projekty').scrollIntoView({ behavior: 'smooth' })">Poznaj podstawowe projekty</button>
+            {% if current_user %}
+                <p>Jesteś zalogowany. Masz pełen dostęp do ukrytych materiałów strefy Community.</p>
+                <a href="/community" class="explore-btn">Wejdź do strefy Community →</a>
+            {% else %}
+                <p>Zaloguj się lub zarejestruj, aby uzyskać ekskluzywny dostęp do strefy Community z ukrytymi materiałami.</p>
+                <button class="explore-btn" onclick="document.getElementById('projekty').scrollIntoView({ behavior: 'smooth' })">Poznaj podstawowe projekty</button>
+            {% endif %}
         </div>
 
         <h2 id="projekty" class="projects-heading">Podstawowe pliki i schematy 3D</h2>
         <p style="color: #a7f3d0; margin-bottom: 30px;">Przeglądaj darmową bazę projektów startowych:</p>
         
         <div class="projects-grid">
-            <!-- PROJEKT 1: ŁÓDKA ZE ZDJĘCIEM I LINKIEM -->
+            <!-- PROJEKT 1: ŁÓDKA -->
             <div class="project-card">
                 <h3>01. łódka</h3>
-                <p>Twój osobisty, szczegółowy model 3D wgrany do systemu. Zaloguj się, aby odblokować pobieranie.</p>
-                
-                <!-- Prawdziwy, oczyszczony link do zdjęcia z Thingiverse -->
-                <img src="https://thingiverse.com" alt="Łódka">
-                
-                <!-- Link małym drukiem -->
-                <span>https://thingiverse.com</span>
-
-                <div class="download-btn" onclick="openModal('loginModal')">Pobierz .STL (Wymaga logowania)</div>
+                <p>Twój osobisty, szczegółowy model 3D wgrany do systemu. Przejdź do strefy Community, aby odblokować pobieranie.</p>
+                {% if current_user %}
+                    <a href="/community" class="download-btn">Pobierz w strefy Community</a>
+                {% else %}
+                    <button class="download-btn" onclick="openModal('loginModal')">Pobierz .STL (Wymaga logowania)</button>
+                {% endif %}
             </div>
 
-            <!-- Reszta projektów startowych -->
+            <!-- PROJEKT 2: KOSTKA KALIBRACYJNA -->
             <div class="project-card">
                 <h3>02. Kostka Kalibracyjna 20x20</h3>
-                <p>Podstawowy test dokładności wymiarowej Twojej drukarki w osiach X, Y, Z. Pozwala sprawdzić poprawność kroków silnika.</p>
-                <div class="download-btn" onclick="openModal('loginModal')">Pobierz .STL (Wymaga logowania)</div>
-            </div>
-            <div class="project-card">
-                <h3>03. Test Retrakcji (Stringing)</h3>
-                <p>Szybki schemat pozwalający wyeliminować irytujące nitkowanie filamentu podczas przemieszczania się głowicy.</p>
-                <div class="download-btn" onclick="openModal('loginModal')">Pobierz .STL (Wymaga logowania)</div>
-            </div>
-            <div class="project-card">
-                <h3>04. Wieża Temperatur</h3>
-                <p>Pozwala dobrać idealną temperaturę dyszy dla nowego zwoju PLA/PETG poprzez zmianę ciepła na poszczególnych piętrach.</p>
-                <div class="download-btn" onclick="openModal('loginModal')">Pobierz .GCODE (Wymaga logowania)</div>
-            </div>
-            <div class="project-card">
