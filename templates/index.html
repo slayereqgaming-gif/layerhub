@@ -7,51 +7,57 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f7fa;
-            color: #333;
+            background-color: #0a0f0d; /* Czarne/bardzo ciemne tło */
+            color: #e2e8f0;
             margin: 0;
             padding: 0;
             text-align: center;
         }
         header {
-            background-color: #1e293b;
-            color: white;
-            padding: 30px 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background-color: #111c17; /* Ciemnozielony nagłówek */
+            color: #10b981; /* Jasnozielony tekst neonowy */
+            padding: 45px 20px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1);
             position: relative;
+            border-bottom: 2px solid #047857;
         }
         header h1 {
             margin: 0;
-            font-size: 2.5em;
-            letter-spacing: 1px;
+            font-size: 2.8em;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
         }
         header p {
             margin: 10px 0 0 0;
-            opacity: 0.8;
-            font-size: 1.1em;
+            color: #a7f3d0;
+            opacity: 0.9;
+            font-size: 1.2em;
         }
-        /* Kontener na przyciski w prawym górnym rogu */
         .auth-buttons {
             position: absolute;
-            top: 25px;
+            top: 30px;
             right: 30px;
             display: flex;
-            gap: 10px;
+            gap: 12px;
         }
         .btn {
             border: none;
-            padding: 10px 20px;
+            padding: 10px 22px;
             font-size: 1em;
             font-weight: bold;
             border-radius: 6px;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: all 0.2s;
             color: white;
         }
-        .login-btn { background-color: #475569; }
-        .login-btn:hover { background-color: #334155; }
-        .signup-btn { background-color: #007acc; }
-        .signup-btn:hover { background-color: #005999; }
+        .login-btn { 
+            background-color: #1f2937; 
+            border: 1px solid #047857;
+            color: #10b981;
+        }
+        .login-btn:hover { background-color: #047857; color: white; }
+        .signup-btn { background-color: #10b981; }
+        .signup-btn:hover { background-color: #059669; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); }
         
         .container {
             max-width: 800px;
@@ -59,20 +65,42 @@
             padding: 0 20px;
         }
         .welcome-box {
-            background: white;
-            padding: 30px;
+            background: #111827; /* Ciemny grafit */
+            padding: 40px;
             border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-            border-top: 5px solid #007acc;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            border: 1px solid #1f2937;
+            border-top: 5px solid #10b981;
+        }
+        .explore-btn {
+            display: inline-block;
+            margin-top: 25px;
+            background-color: #047857;
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.2s;
+            border: 1px solid #10b981;
+            cursor: pointer;
+        }
+        .explore-btn:hover {
+            background-color: #10b981;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+            transform: translateY(-2px);
         }
         .error-msg {
-            background-color: #fee2e2;
-            color: #991b1b;
+            background-color: #7f1d1d;
+            color: #fca5a5;
             padding: 12px;
             border-radius: 6px;
             font-weight: bold;
             margin-bottom: 20px;
+            border: 1px solid #b91c1c;
         }
+        /* Modal Styles */
         .modal {
             display: none; 
             position: fixed;
@@ -81,18 +109,19 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            background-color: rgba(0,0,0,0.8);
         }
         .modal-content {
-            background-color: white;
+            background-color: #111827;
             margin: 15% auto;
-            padding: 30px;
+            padding: 35px;
             border-radius: 12px;
             width: 90%;
             max-width: 400px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 25px rgba(16, 185, 129, 0.2);
             text-align: left;
             position: relative;
+            border: 1px solid #047857;
         }
         .close-btn {
             position: absolute;
@@ -100,16 +129,18 @@
             right: 20px;
             font-size: 24px;
             cursor: pointer;
-            color: #666;
+            color: #94a3b8;
         }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .form-group input { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 6px; font-size: 1em; }
+        .close-btn:hover { color: #10b981; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #10b981; }
+        .form-group input { width: 100%; padding: 12px; box-sizing: border-box; background-color: #1f2937; border: 1px solid #4b5563; border-radius: 6px; font-size: 1em; color: white; }
+        .form-group input:focus { border-color: #10b981; outline: none; }
         .submit-btn { width: 100%; color: white; border: none; padding: 12px; font-size: 1.1em; font-weight: bold; border-radius: 6px; cursor: pointer; }
         .submit-signup { background-color: #10b981; }
         .submit-signup:hover { background-color: #059669; }
-        .submit-login { background-color: #007acc; }
-        .submit-login:hover { background-color: #005999; }
+        .submit-login { background-color: #047857; border: 1px solid #10b981; }
+        .submit-login:hover { background-color: #065f46; }
     </style>
 </head>
 <body>
@@ -124,14 +155,16 @@
     </header>
 
     <div class="container">
-        <!-- Wyświetlanie błędów, jeśli Python je odeśle -->
         {% if error %}
             <div class="error-msg">{{ error }}</div>
         {% endif %}
 
         <div class="welcome-box">
-            <h2>Witaj na LayerHub!</h2>
-            <p>Zaloguj się lub zarejestruj, aby uzyskać dostęp do strefy Community z projektami.</p>
+            <h2 style="color: #10b981; margin-top: 0;">Witaj na LayerHub!</h2>
+            <p>Zaloguj się lub zarejestruj, aby uzyskać pełny dostęp do strefy pobierania modeli 3D.</p>
+            
+            <!-- Nowy przycisk otwierający okno rejestracji, zachęcający do sprawdzenia plików -->
+            <button class="explore-btn" onclick="openModal('signUpModal')">Explore Basic Projects</button>
         </div>
     </div>
 
@@ -139,7 +172,7 @@
     <div id="signUpModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('signUpModal')">&times;</span>
-            <h2 style="margin-top: 0; color: #1e293b;">Create Account</h2>
+            <h2 style="margin-top: 0; color: #10b981;">Create Account</h2>
             <form action="/register" method="POST">
                 <div class="form-group">
                     <label for="reg-nickname">Nickname:</label>
@@ -158,7 +191,7 @@
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
-            <h2 style="margin-top: 0; color: #1e293b;">Sign In</h2>
+            <h2 style="margin-top: 0; color: #10b981;">Sign In</h2>
             <form action="/login" method="POST">
                 <div class="form-group">
                     <label for="log-nickname">Nickname:</label>
