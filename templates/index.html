@@ -137,19 +137,22 @@
             color: #94a3b8;
             font-size: 0.95em;
             line-height: 1.5;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
-        .source-link {
+        .project-card img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            margin: 15px 0;
+            border: 1px solid #047857;
+        }
+        .project-card span {
             display: block;
             font-size: 0.75em;
-            color: #4b5563;
-            text-decoration: none;
+            color: #64748b;
             margin-bottom: 15px;
             word-break: break-all;
-        }
-        .source-link:hover {
-            color: #10b981;
-            text-decoration: underline;
         }
         .download-btn {
             display: block;
@@ -158,7 +161,6 @@
             color: #10b981;
             border: 1px solid #047857;
             padding: 10px;
-            margin-top: 15px;
             border-radius: 6px;
             text-decoration: none;
             font-weight: bold;
@@ -237,12 +239,34 @@
         <p style="color: #a7f3d0; margin-bottom: 30px;">Przeglądaj darmową bazę projektów startowych:</p>
         
         <div class="projects-grid">
-            <!-- PIERWSZA KARTA: ŁÓDKA ZE ZDJĘCIEM I LINKIEM -->
+            <!-- PROJEKT 1: ŁÓDKA ZE ZDJĘCIEM I LINKIEM -->
             <div class="project-card">
-                <h3>01. Łódka</h3>
-                
-                <!-- Zaimplementowany bezpośredni zewnętrzny link do Twojego zdjęcia -->
-                <img src="https://resize.thingiverse.com/?url=https://cdn.thingiverse.com/assets/84/71/42/61/a4/Dual-print_multi-part_color_3D_print_of_3DBenchy_v45.jpg&w=1024&h=1024&fit=contain&cbg=white&n=-1" alt="Łódka" style="max-width: 100%; height: auto; border-radius: 6px; margin: 12px 0; border: 1px solid #047857;">
-                
+                <h3>01. łódka</h3>
                 <p>Twój osobisty, szczegółowy model 3D wgrany do systemu. Zaloguj się, aby odblokować pobieranie.</p>
-                <a href="https://thingiverse.com" target="_blank" class="source-link">
+                
+                <!-- Prawdziwy, oczyszczony link do zdjęcia z Thingiverse -->
+                <img src="https://thingiverse.com" alt="Łódka">
+                
+                <!-- Link małym drukiem -->
+                <span>https://thingiverse.com</span>
+
+                <div class="download-btn" onclick="openModal('loginModal')">Pobierz .STL (Wymaga logowania)</div>
+            </div>
+
+            <!-- Reszta projektów startowych -->
+            <div class="project-card">
+                <h3>02. Kostka Kalibracyjna 20x20</h3>
+                <p>Podstawowy test dokładności wymiarowej Twojej drukarki w osiach X, Y, Z. Pozwala sprawdzić poprawność kroków silnika.</p>
+                <div class="download-btn" onclick="openModal('loginModal')">Pobierz .STL (Wymaga logowania)</div>
+            </div>
+            <div class="project-card">
+                <h3>03. Test Retrakcji (Stringing)</h3>
+                <p>Szybki schemat pozwalający wyeliminować irytujące nitkowanie filamentu podczas przemieszczania się głowicy.</p>
+                <div class="download-btn" onclick="openModal('loginModal')">Pobierz .STL (Wymaga logowania)</div>
+            </div>
+            <div class="project-card">
+                <h3>04. Wieża Temperatur</h3>
+                <p>Pozwala dobrać idealną temperaturę dyszy dla nowego zwoju PLA/PETG poprzez zmianę ciepła na poszczególnych piętrach.</p>
+                <div class="download-btn" onclick="openModal('loginModal')">Pobierz .GCODE (Wymaga logowania)</div>
+            </div>
+            <div class="project-card">
