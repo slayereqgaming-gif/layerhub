@@ -137,28 +137,6 @@
             color: #94a3b8;
             font-size: 0.95em;
             line-height: 1.5;
-            margin-bottom: 10px;
-        }
-        .project-link {
-            display: block;
-            font-size: 0.75em;
-            color: #4b5563;
-            text-decoration: none;
-            margin-bottom: 15px;
-            word-break: break-all;
-        }
-        .project-link:hover {
-            color: #10b981;
-            text-decoration: underline;
-        }
-        .project-img {
-            width: 100%;
-            height: auto;
-            max-height: 180px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            border: 1px solid #1f2937;
         }
         .download-btn {
             display: block;
@@ -167,6 +145,7 @@
             color: #10b981;
             border: 1px solid #047857;
             padding: 10px;
+            margin-top: 15px;
             border-radius: 6px;
             text-decoration: none;
             font-weight: bold;
@@ -176,6 +155,18 @@
         .download-btn:hover {
             background-color: #10b981;
             color: white;
+        }
+        .source-link {
+            display: block;
+            font-size: 0.75em;
+            color: #64748b;
+            text-decoration: none;
+            margin-top: 8px;
+            word-break: break-all;
+        }
+        .source-link:hover {
+            color: #38bdf8;
+            text-decoration: underline;
         }
         .modal {
             display: none; 
@@ -245,13 +236,13 @@
         <p style="color: #a7f3d0; margin-bottom: 30px;">Przeglądaj darmową bazę projektów startowych:</p>
         
         <div class="projects-grid">
-            <!-- PROJEKT 01: ŁÓDKA ZE ZDJĘCIEM .JPG I LINKIEM Z THINGIVERSE -->
+            <!-- PROJEKT 01: ŁÓDKA ZE ZDJĘCIEM I LINKIEM DO THINGIVERSE -->
             <div class="project-card">
-                <h3>01. Łódka</h3>
-                <!-- Miniaturka z rozszerzeniem .jpg -->
-                <img src="/static/lodka.jpg" alt="Łódka 3D" class="project-img">
+                <h3>01. łódka</h3>
+                <!-- Prawidłowy, niezależny link do zdjęcia zielono-brązowej łódeczki -->
+                <img src="https://imgur.com" alt="Łódka 3D" style="max-width: 100%; height: auto; border-radius: 6px; margin: 15px 0; border: 1px solid #047857; box-shadow: 0 0 8px rgba(16, 185, 129, 0.2);">
                 <p>Twój osobisty, szczegółowy model 3D wgrany do systemu. Zaloguj się, aby odblokować pobieranie.</p>
-                <a href="https://thingiverse.com" target="_blank" class="project-link">https://thingiverse.com</a>
+                <a href="https://thingiverse.com" target="_blank" class="source-link">https://thingiverse.com</a>
                 <div class="download-btn" onclick="openModal('loginModal')">Pobierz .STL (Wymaga logowania)</div>
             </div>
 
@@ -269,3 +260,6 @@
             <div class="project-card">
                 <h3>04. Wieża Temperatur</h3>
                 <p>Pozwala dobrać idealną temperaturę dyszy dla nowego zwoju PLA/PETG poprzez zmianę ciepła na poszczególnych piętrach.</p>
+                <div class="download-btn" onclick="openModal('loginModal')">Pobierz .GCODE (Wymaga logowania)</div>
+            </div>
+            <div class="project-card">
