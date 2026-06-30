@@ -23,9 +23,12 @@ def save_user(nickname, password):
     with open(DB_FILE, "a", encoding="utf-8") as f:
         f.write(f"{nickname}:{password}\n")
 
+# Naprawione ścieżki: teraz telefon wejdzie bez błędu 404
 @app.route('/')
+@app.route('/index')
 def home():
-    return render_template('index.html')
+    error_msg = request.args.get('error')
+    return render_template('index.html', error=error_msg)
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -33,26 +36,31 @@ def register():
     password = request.form.get('password')
     
     if nickname and password:
-        # Usuwamy spacje i dwukropki z nicku dla bezpieczeństwa zapisu w pliku
         nickname = nickname.strip().replace(":", "")
-        
-        # Sprawdzamy, czy login nie jest już zajęty
         uzytkownicy = load_users()
-        if nickname in uzytkownicy:
-            # Jeśli zajęty, wracamy na stronę główną (możesz dodać komunikat o błędzie)
-            return redirect(url_for('home'))
-            
-        # Zapisujemy konto na stałe w pliku users.txt
-        save_user(nickname, password)
         
-        # Przekierowujemy użytkownika prosto do strefy Community
+        if nickname in uzytkownicy:
+            return redirect(url_for('home', error="This nickname is already taken!"))
+            
+        save_user(nickname, password)
         return redirect(url_for('community', user=nickname))
         
     return redirect(url_for('home'))
 
+@app.route('/login', methods=['POST'])
+def login():
+    nickname = request.form.get('nickname')
+    password = request.form.get('password')
+    
+    uzytkownicy = load_users()
+    
+    if nickname in uzytkownicy and uzytkownicy[nickname] == password:
+        return redirect(url_for('community', user=nickname))
+    else:
+        return redirect(url_for('home', error="Invalid nickname or password!"))
+
 @app.route('/community')
 def community():
-    # Pobieramy nick z adresu URL, żeby spersonalizować powitanie
     nazwa_uzytkownika = request.args.get('user', 'Gość')
     return render_template('community.html', user=nazwa_uzytkownika)
 
