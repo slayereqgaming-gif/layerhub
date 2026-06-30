@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LayerHub - Community Space</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0f172a; /* Ciemny, profesjonalny motyw dla strefy społeczności */
+            color: #f8fafc;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .nav {
+            background-color: #1e293b;
+            padding: 15px;
+            text-align: left;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+        .nav a {
+            color: #38bdf8;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1em;
+        }
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        .community-box {
+            background-color: #1e293b;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        h1 { 
+            color: #38bdf8; 
+            margin-top: 0;
+        }
+        .placeholder-zone {
+            margin-top: 30px;
+            padding: 40px;
+            border: 2px dashed #475569;
+            border-radius: 8px;
+            color: #94a3b8;
+            background-color: #111827;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <a href="/">← Back to Home</a>
+    </div>
+
+    <div class="container">
+        <div class="community-box">
+            <!-- Tutaj Python automatycznie wstawi nazwę zarejestrowanego użytkownika -->
+            <h1>Welcome to the Community, {{ user }}! 🎉</h1>
+            <p>Twoje konto zostało pomyślnie utworzone i zapisane w systemie.</p>
+            
+            <div class="placeholder-zone">
+                <h3 style="color: #f8fafc; margin-top: 0;">[ Strefa Projektów 3D ]</h3>
+                <p>W tym miejscu już wkrótce pojawią się blueprinty, pliki .STL oraz gotowe kody do pobrania na Twoją drukarkę 3D!</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
