@@ -10,19 +10,19 @@
         header h1 { margin: 0; font-size: 2.8em; letter-spacing: 2px; text-shadow: 0 0 10px rgba(16, 185, 129, 0.3); }
         header p { margin: 10px 0 0 0; color: #a7f3d0; opacity: 0.9; font-size: 1.2em; }
         
-        /* PANEL W PRAWYM GÓRNYM ROGU */
-        .auth-buttons { position: absolute; top: 30px; right: 30px; display: flex; align-items: center; gap: 15px; }
+        /* POPRAWIONY PANEL W PRAWYM GÓRNYM ROGU */
+        .auth-buttons { position: absolute; top: 30px; right: 30px; display: flex; align-items: center; gap: 15px; z-index: 10; }
         .btn { border: none; padding: 10px 22px; font-size: 1em; font-weight: bold; border-radius: 6px; cursor: pointer; transition: all 0.2s; color: white; text-decoration: none; }
         .login-btn { background-color: #1f2937; border: 1px solid #047857; color: #10b981; }
         .login-btn:hover { background-color: #047857; color: white; }
         .signup-btn { background-color: #10b981; }
         .signup-btn:hover { background-color: #059669; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); }
         
-        /* PRZYCISK STWÓRZ DLA ZALOGOWANEGO */
+        /* PRZYCISK STWÓRZ */
         .create-btn { background-color: #047857; border: 1px solid #10b981; color: white; }
         .create-btn:hover { background-color: #10b981; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); }
         
-        /* PROFIL UŻYTKOWNIKA I AWATAR */
+        /* PROFIL I AWATAR SEKCJA */
         .user-profile { display: flex; align-items: center; gap: 10px; background-color: #1f2937; padding: 6px 14px; border-radius: 20px; border: 1px solid #374151; }
         .username-text { font-weight: bold; color: #a7f3d0; font-size: 0.95em; }
         .default-avatar { width: 34px; height: 34px; background-color: #4b5563; color: #d1d5db; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9em; border: 1px solid #6b7280; user-select: none; }
@@ -36,7 +36,6 @@
         .projects-heading { color: #10b981; text-shadow: 0 0 10px rgba(16, 185, 129, 0.2); margin-top: 20px; }
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; }
         .project-card { background-color: #111827; border: 1px solid #1f2937; border-top: 4px solid #047857; border-radius: 10px; padding: 25px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s; }
-        .project-card:hover { transform: translateY(-5px); border-top-color: #10b981; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15); }
         .project-card h3 { color: #10b981; margin-top: 0; font-size: 1.3em; }
         .project-card p { color: #94a3b8; font-size: 0.95em; line-height: 1.5; margin-bottom: 15px; }
         .download-btn { display: block; text-align: center; background-color: #1f2937; color: #10b981; border: 1px solid #047857; padding: 10px; border-radius: 6px; text-decoration: none; font-weight: bold; transition: all 0.2s; cursor: pointer; width: 100%; box-sizing: border-box; }
@@ -44,10 +43,14 @@
         
         .earn-section { background-color: #111827; padding: 40px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.4); border: 1px solid #1f2937; border-top: 5px solid #10b981; margin-top: 60px; }
         
+        /* MODALE I PANEL STWÓRZ */
         .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); }
-        .modal-content { background-color: #111827; margin: 15% auto; padding: 35px; border-radius: 12px; width: 90%; max-width: 400px; box-shadow: 0 4px 25px rgba(16, 185, 129, 0.2); text-align: left; position: relative; border: 1px solid #047857; box-sizing: border-box; }
-        .green-panel { background-color: #111c17; border: 2px solid #10b981; }
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #94a3b8; }
+        .modal-content { background-color: #111827; margin: 12% auto; padding: 35px; border-radius: 12px; width: 90%; max-width: 420px; box-shadow: 0 4px 25px rgba(16, 185, 129, 0.2); text-align: left; position: relative; border: 1px solid #047857; box-sizing: border-box; }
+        
+        /* FILTR CIEMNOZIELONEGO PANELU DODAWANIA */
+        .green-panel { background-color: #0c1511 !important; border: 2px solid #10b981 !important; }
+        
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #94a3b8; line-height: 1; }
         .close-btn:hover { color: #10b981; }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #10b981; }
@@ -66,7 +69,6 @@
         <h1>LayerHub</h1>
         <p>Twoja baza blueprintów i projektów na drukarki 3D</p>
         <div class="auth-buttons">
-            <!-- WARUNEK JESTLI UŻYTKOWNIK JEST ZALOGOWANY -->
             {% if current_user %}
                 <button class="btn create-btn" onclick="openModal('addProjectModal')">Stwórz</button>
                 <div class="user-profile">
@@ -74,7 +76,6 @@
                     <div class="default-avatar">??</div>
                 </div>
                 <a href="/logout" class="btn login-btn" style="padding: 10px 14px;">Wyloguj</a>
-            <!-- WARUNEK DLA NIEZALOGOWANEGO -->
             {% else %}
                 <button class="btn login-btn" onclick="openModal('loginModal')">Login</button>
                 <button class="btn signup-btn" onclick="openModal('signUpModal')">Sign Up</button>
@@ -100,7 +101,6 @@
             <div class="project-card">
                 <h3>01. łódka</h3>
                 <p>Kultowy model testowy (Benchy) do kalibracji parametrów Twojej drukarki 3D.</p>
-                <!-- DYNAMICZNE PLIKI POBIERANIA DLA ZALOGOWANYCH -->
                 {% if current_user %}
                     <a href="/static/lodka.stl" download class="download-btn">Pobierz plik lodka.stl</a>
                 {% else %}
@@ -121,7 +121,7 @@
 
         <div class="earn-section">
             <h2 style="color: #10b981; margin-top: 0;">Zarabiaj na projektach 3D! 💰</h2>
-            <p>Publikuj swoje autorskie modele, ustalaj breaths ceny i zarabiaj na każdym pobraniu.</p>
+            <p>Publikuj swoje autorskie modele, ustalaj własne ceny i zarabiaj na każdym pobraniu.</p>
             {% if current_user %}
                 <button class="explore-btn" onclick="openModal('addProjectModal')">Otwórz panel Stwórz</button>
             {% else %}
@@ -141,3 +141,8 @@
                     <input type="text" name="nickname" required>
                 </div>
                 <div class="form-group">
+                    <label>Hasło:</label>
+                    <input type="password" name="password" required>
+                </div>
+                <button type="submit" class="submit-btn submit-login">Zaloguj</button>
+            </form>
