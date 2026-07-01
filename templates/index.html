@@ -231,28 +231,25 @@
         </div>
 
         <h2 id="projekty" class="projects-heading">Podstawowe pliki i schematy 3D</h2>
-        <p style="color: #a7f3d0; margin-bottom: 30px;">Przeglądaj darmową bazę projektów startowych:</p>
+        <p style="color: #a7f3d0; margin-bottom: 30px;">Przeglądaj darmową baza projektów startowych:</p>
         
         <div class="projects-grid">
-            <!-- PROJEKT 1: ŁÓDKA -->
             <div class="project-card">
                 <h3>01. łódka</h3>
-                <p>Kultowa łódka testowa (Benchy) do sprawdzania mostów, nawisów i ogólnej jakości druku 3D.</p>
+                <p>Kultowa łódka 3DBenchy służąca do testowania możliwości drukarki, zwisów i retrakcji.</p>
                 <button class="download-btn" onclick="openModal('loginModal')">Pobierz .STL</button>
             </div>
-
-            <!-- PROJEKT 2: KOSTKA KALIBRACYJNA -->
             <div class="project-card">
                 <h3>02. Kostka Kalibracyjna</h3>
-                <p>Kostka testowa XYZ o wymiarach 20x20mm do dokładnego sprawdzania wymiarów oraz kroków silników.</p>
+                <p>Kostka XYZ 20mm pozwalająca sprawdzić dokładność wymiarową osi Twojej maszyny.</p>
                 <button class="download-btn" onclick="openModal('loginModal')">Pobierz .STL</button>
             </div>
         </div>
 
-        <!-- SEKCJA ZARABIANIA -->
+        <!-- SEKCJA ZARABIANIA NA SAMYM DOLE KONTENERA -->
         <div class="earn-section">
             <h2 style="color: #10b981; margin-top: 0;">Zarabiaj na swoich projektach 3D! 💰</h2>
-            <p>Publikuj swoje autorskie modele, ustawiaj własne ceny i generuj zysk z każdego pobrania.</p>
+            <p>Publikuj swoje autorskie modele, ustalaj własne ceny i generuj stały zysk z każdego pobrania.</p>
             <button class="explore-btn" onclick="openModal('signUpModal')">Zacznij publikować</button>
         </div>
     </div>
@@ -261,20 +258,21 @@
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
-            <h2 style="color: #10b981; margin-top: 0; margin-bottom: 25px;">Logowanie</h2>
+            <h2 style="color: #10b981; margin-top: 0;">Zaloguj się</h2>
             <form action="/login" method="POST">
                 <div class="form-group">
-                    <label>Twój Nickname:</label>
+                    <label>Nickname:</label>
                     <input type="text" name="nickname" required>
                 </div>
                 <div class="form-group">
                     <label>Hasło:</label>
                     <input type="password" name="password" required>
                 </div>
-                <button type="submit" class="submit-btn submit-login">Zaloguj się</button>
+                <button type="submit" class="submit-btn submit-login">Zaloguj</button>
             </form>
         </div>
     </div>
 
     <!-- MODAL REJESTRACJI -->
     <div id="signUpModal" class="modal">
+        <div class="modal-content">
