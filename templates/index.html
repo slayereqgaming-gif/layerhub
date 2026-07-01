@@ -5,41 +5,202 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LayerHub - Modele i Blueprinty 3D</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0a0f0d; color: #e2e8f0; margin: 0; padding: 0; text-align: center; }
-        header { background-color: #111c17; color: #10b981; padding: 45px 20px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1); position: relative; border-bottom: 2px solid #047857; }
-        header h1 { margin: 0; font-size: 2.8em; letter-spacing: 2px; text-shadow: 0 0 10px rgba(16, 185, 129, 0.3); }
-        header p { margin: 10px 0 0 0; color: #a7f3d0; opacity: 0.9; font-size: 1.2em; }
-        .auth-buttons { position: absolute; top: 30px; right: 30px; display: flex; gap: 12px; }
-        .btn { border: none; padding: 10px 22px; font-size: 1em; font-weight: bold; border-radius: 6px; cursor: pointer; transition: all 0.2s; color: white; text-decoration: none; }
-        .login-btn { background-color: #1f2937; border: 1px solid #047857; color: #10b981; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0f0d;
+            color: #e2e8f0;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #111c17;
+            color: #10b981;
+            padding: 45px 20px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1);
+            position: relative;
+            border-bottom: 2px solid #047857;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.8em;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+        }
+        header p {
+            margin: 10px 0 0 0;
+            color: #a7f3d0;
+            opacity: 0.9;
+            font-size: 1.2em;
+        }
+        .auth-buttons {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            gap: 12px;
+        }
+        .btn {
+            border: none;
+            padding: 10px 22px;
+            font-size: 1em;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+        }
+        .login-btn { 
+            background-color: #1f2937; 
+            border: 1px solid #047857;
+            color: #10b981;
+        }
         .login-btn:hover { background-color: #047857; color: white; }
         .signup-btn { background-color: #10b981; }
         .signup-btn:hover { background-color: #059669; box-shadow: 0 0 12px rgba(16, 185, 129, 0.4); }
         
-        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
-        .welcome-box { max-width: 800px; margin: 0 auto 50px auto; background: #111827; padding: 40px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.4); border: 1px solid #1f2937; border-top: 5px solid #10b981; }
-        .explore-btn { display: inline-block; margin-top: 25px; background-color: #047857; color: white; text-decoration: none; padding: 14px 28px; font-size: 1.1em; font-weight: bold; border-radius: 8px; transition: all 0.2s; border: 1px solid #10b981; cursor: pointer; }
-        .explore-btn:hover { background-color: #10b981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.5); transform: translateY(-2px); }
-        .error-msg { background-color: #7f1d1d; color: #fca5a5; padding: 12px; border-radius: 6px; font-weight: bold; margin-bottom: 20px; border: 1px solid #b91c1c; }
-        
-        .projects-heading { color: #10b981; text-shadow: 0 0 10px rgba(16, 185, 129, 0.2); margin-top: 20px; }
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; }
-        .project-card { background-color: #111827; border: 1px solid #1f2937; border-top: 4px solid #047857; border-radius: 10px; padding: 25px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s; }
-        .project-card h3 { color: #10b981; margin-top: 0; font-size: 1.3em; }
-        .project-card p { color: #94a3b8; font-size: 0.95em; line-height: 1.5; margin-bottom: 15px; }
-        .download-btn { display: block; text-align: center; background-color: #1f2937; color: #10b981; border: 1px solid #047857; padding: 10px; border-radius: 6px; text-decoration: none; font-weight: bold; transition: all 0.2s; cursor: pointer; }
-        .download-btn:hover { background-color: #10b981; color: white; }
-        
-        .earn-box { background-color: #111827; padding: 40px; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.4); border: 1px solid #1f2937; border-top: 5px solid #10b981; margin-top: 60px; }
-        
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); }
-        .modal-content { background-color: #111827; margin: 15% auto; padding: 35px; border-radius: 12px; width: 90%; max-width: 400px; box-shadow: 0 4px 25px rgba(16, 185, 129, 0.2); text-align: left; position: relative; border: 1px solid #047857; }
-        .green-panel { background-color: #111c17; border: 2px solid #10b981; box-shadow: 0 4px 25px rgba(16, 185, 129, 0.4); }
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #94a3b8; }
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .welcome-box {
+            max-width: 800px;
+            margin: 0 auto 50px auto;
+            background: #111827;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            border: 1px solid #1f2937;
+            border-top: 5px solid #10b981;
+        }
+        .explore-btn {
+            display: inline-block;
+            margin-top: 25px;
+            background-color: #047857;
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.2s;
+            border: 1px solid #10b981;
+            cursor: pointer;
+        }
+        .explore-btn:hover {
+            background-color: #10b981;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+            transform: translateY(-2px);
+        }
+        .error-msg {
+            background-color: #7f1d1d;
+            color: #fca5a5;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border: 1px solid #b91c1c;
+        }
+        .projects-heading {
+            color: #10b981;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+            margin-top: 20px;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .project-card {
+            background-color: #111827;
+            border: 1px solid #1f2937;
+            border-top: 4px solid #047857;
+            border-radius: 10px;
+            padding: 25px;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-top-color: #10b981;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15);
+        }
+        .project-card h3 {
+            color: #10b981;
+            margin-top: 0;
+            font-size: 1.3em;
+        }
+        .project-card p {
+            color: #94a3b8;
+            font-size: 0.95em;
+            line-height: 1.5;
+            margin-bottom: 5px;
+        }
+        .download-btn {
+            display: block;
+            text-align: center;
+            background-color: #1f2937;
+            color: #10b981;
+            border: 1px solid #047857;
+            padding: 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.2s;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+        .download-btn:hover {
+            background-color: #10b981;
+            color: white;
+        }
+        .earn-section {
+            background-color: #111827;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+            border: 1px solid #1f2937;
+            border-top: 5px solid #10b981;
+            margin-top: 60px;
+        }
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+        .modal-content {
+            background-color: #111827;
+            margin: 15% auto;
+            padding: 35px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 25px rgba(16, 185, 129, 0.2);
+            text-align: left;
+            position: relative;
+            border: 1px solid #047857;
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #94a3b8;
+        }
         .close-btn:hover { color: #10b981; }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #10b981; }
         .form-group input { width: 100%; padding: 12px; box-sizing: border-box; background-color: #1f2937; border: 1px solid #4b5563; border-radius: 6px; font-size: 1em; color: white; }
+        .form-group input:focus { border-color: #10b981; outline: none; }
         .submit-btn { width: 100%; color: white; border: none; padding: 12px; font-size: 1.1em; font-weight: bold; border-radius: 6px; cursor: pointer; }
         .submit-signup { background-color: #10b981; }
         .submit-signup:hover { background-color: #059669; }
@@ -53,13 +214,8 @@
         <h1>LayerHub</h1>
         <p>Twoja baza blueprintów i projektów na drukarki 3D</p>
         <div class="auth-buttons">
-            {% if current_user %}
-                <button class="btn signup-btn" onclick="openModal('addProjectModal')">+ Dodaj</button>
-                <a href="/logout" class="btn login-btn">Wyloguj ({{ current_user }})</a>
-            {% else %}
-                <button class="btn login-btn" onclick="openModal('loginModal')">Login</button>
-                <button class="btn signup-btn" onclick="openModal('signUpModal')">Sign Up</button>
-            {% endif %}
+            <button class="btn login-btn" onclick="openModal('loginModal')">Login</button>
+            <button class="btn signup-btn" onclick="openModal('signUpModal')">Sign Up</button>
         </div>
     </header>
 
@@ -75,48 +231,40 @@
         </div>
 
         <h2 id="projekty" class="projects-heading">Podstawowe pliki i schematy 3D</h2>
+        <p style="color: #a7f3d0; margin-bottom: 30px;">Przeglądaj darmową bazę projektów startowych:</p>
         
         <div class="projects-grid">
+            <!-- PROJEKT 1: ŁÓDKA -->
             <div class="project-card">
-                <h3>01. łódka (Benchy)</h3>
-                <p>Kultowy model testowy do kalibracji drukarki 3D.</p>
-                {% if current_user %}
-                    <a href="/static/lodka.stl" download class="download-btn">Pobierz plik lodka.stl</a>
-                {% else %}
-                    <button class="download-btn" onclick="openModal('loginModal')">Pobierz (Wymaga logowania)</button>
-                {% endif %}
+                <h3>01. łódka</h3>
+                <p>Kultowa łódka testowa (Benchy) do sprawdzania mostów, nawisów i ogólnej jakości druku 3D.</p>
+                <button class="download-btn" onclick="openModal('loginModal')">Pobierz .STL</button>
             </div>
 
+            <!-- PROJEKT 2: KOSTKA KALIBRACYJNA -->
             <div class="project-card">
                 <h3>02. Kostka Kalibracyjna</h3>
-                <p>Kostka 20x20mm do dokładnego testu osi X, Y, Z.</p>
-                {% if current_user %}
-                    <a href="/static/kostka.stl" download class="download-btn">Pobierz plik kostka.stl</a>
-                {% else %}
-                    <button class="download-btn" onclick="openModal('loginModal')">Pobierz (Wymaga logowania)</button>
-                {% endif %}
+                <p>Kostka testowa XYZ o wymiarach 20x20mm do dokładnego sprawdzania wymiarów oraz kroków silników.</p>
+                <button class="download-btn" onclick="openModal('loginModal')">Pobierz .STL</button>
             </div>
         </div>
 
-        <div class="earn-box">
+        <!-- SEKCJA ZARABIANIA -->
+        <div class="earn-section">
             <h2 style="color: #10b981; margin-top: 0;">Zarabiaj na swoich projektach 3D! 💰</h2>
-            <p>Dołącz do społeczności twórców. Publikuj autorskie modele i ustalaj własne ceny.</p>
-            {% if current_user %}
-                <button class="explore-btn" onclick="openModal('addProjectModal')">Otwórz panel dodawania</button>
-            {% else %}
-                <button class="explore-btn" onclick="openModal('signUpModal')">Zacznij zarabiać</button>
-            {% endif %}
+            <p>Publikuj swoje autorskie modele, ustawiaj własne ceny i generuj zysk z każdego pobrania.</p>
+            <button class="explore-btn" onclick="openModal('signUpModal')">Zacznij publikować</button>
         </div>
     </div>
 
-    <!-- MODAL: LOGIN -->
+    <!-- MODAL LOGOWANIA -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
-            <h2 style="color: #10b981; margin-top: 0;">Logowanie</h2>
+            <h2 style="color: #10b981; margin-top: 0; margin-bottom: 25px;">Logowanie</h2>
             <form action="/login" method="POST">
                 <div class="form-group">
-                    <label>Nazwa użytkownika:</label>
+                    <label>Twój Nickname:</label>
                     <input type="text" name="nickname" required>
                 </div>
                 <div class="form-group">
@@ -128,28 +276,5 @@
         </div>
     </div>
 
-    <!-- MODAL: SIGN UP -->
+    <!-- MODAL REJESTRACJI -->
     <div id="signUpModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('signUpModal')">&times;</span>
-            <h2 style="color: #10b981; margin-top: 0;">Rejestracja</h2>
-            <form action="/register" method="POST">
-                <div class="form-group">
-                    <label>Twój Nickname:</label>
-                    <input type="text" name="nickname" required>
-                </div>
-                <div class="form-group">
-                    <label>Hasło dostępu:</label>
-                    <input type="password" name="password" required>
-                </div>
-                <button type="submit" class="submit-btn submit-signup">Utwórz konto</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL: CIEMNOZIELONY PANEL DODAWANIA -->
-    <div id="addProjectModal" class="modal">
-        <div class="modal-content green-panel">
-            <span class="close-btn" onclick="closeModal('addProjectModal')">&times;</span>
-            <h2 style="color: #10b981; margin-top: 0;">🚀 Dodaj nowy projekt 3D</h2>
-            <p style="color: #a7f3d0; font-size: 0.9em;">Panel dodawania i wyceny projektów (w budowie).</p>
