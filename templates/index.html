@@ -79,32 +79,29 @@
         <div class="welcome-box">
             <h2 style="color: #10b981; margin-top: 0;">Witaj na LayerHub!</h2>
             <p>Zaloguj się lub zarejestruj, aby uzyskać ekskluzywny dostęp do strefy Community z ukrytymi materiałami.</p>
-            <button class="explore-btn" onclick="document.getElementById('projekty').scrollIntoView({ behavior: 'smooth' })">Poznaj podstawowe projekty</button>
+            <button class="explore-btn" onclick="document.getElementById('projekty').scrollIntoView({ behavior: 'smooth' })">Poznaj projekty społeczności</button>
         </div>
 
-        <h2 id="projekty" class="projects-heading">Podstawowe pliki i schematy 3D</h2>
-        <p style="color: #a7f3d0; margin-bottom: 30px;">Przeglądaj darmową baza projektów startowych:</p>
+        <h2 id="projekty" class="projects-heading">Projekty Community</h2>
+        <p style="color: #a7f3d0; margin-bottom: 30px;">Modele dodane przez społeczność LayerHub:</p>
 
-        <div class="projects-grid">
-            <div class="project-card">
-                <h3>01. łódka</h3>
-                <p>Kultowy model testowy (Benchy) do kalibracji parametrów Twojej drukarki 3D.</p>
-                {% if current_user %}
-                    <a href="/static/lodka.stl" download class="download-btn">Pobierz plik lodka.stl</a>
-                {% else %}
-                    <button class="download-btn" onclick="openModal('loginModal')">Pobierz .STL</button>
-                {% endif %}
-            </div>
-
-            <div class="project-card">
-                <h3>02. Kostka Kalibracyjna</h3>
-                <p>Kostka testowa XYZ o wymiarach 20x20mm sprawdzająca dokładność kroków silnika.</p>
-                {% if current_user %}
-                    <a href="/static/kostka.stl" download class="download-btn">Pobierz plik kostka.stl</a>
-                {% else %}
-                    <button class="download-btn" onclick="openModal('loginModal')">Pobierz .STL</button>
-                {% endif %}
-            </div>
+        <div class="projects-grid" id="communityProjectsGrid">
+            {% if projects %}
+                {% for project in projects %}
+                    <div class="project-card">
+                        <h3>{{ project.title }}</h3>
+                        <p>{{ project.description }}</p>
+                        <p style="color:#64748b; font-size:0.85em;">Autor: {{ project.author }} &bull; Cena: {{ "%.2f"|format(project.price) }} PLN</p>
+                        {% if current_user %}
+                            <a href="{{ url_for('static', filename='uploads/' + project.stored_filename) }}" download="{{ project.original_filename }}" class="download-btn">Pobierz {{ project.original_filename }}</a>
+                        {% else %}
+                            <button class="download-btn" onclick="openModal('loginModal')">Pobierz .STL</button>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p id="noProjectsMsg" style="color:#64748b; grid-column: 1 / -1;">Na razie brak projektów. Bądź pierwszą osobą, która coś doda! 🚀</p>
+            {% endif %}
         </div>
 
         <div class="earn-section">
@@ -112,6 +109,7 @@
             <p>Publikuj swoje autorskie modele, ustalaj własne ceny i zarabiaj na każdym pobraniu.</p>
             {% if current_user %}
                 <button class="explore-btn" onclick="openModal('addProjectModal')">Otwórz panel Stwórz</button>
+                <p style="color: #64748b; font-size: 0.85em; margin-top: 12px;">* Serwis pobiera prowizję w wysokości {{ provision_percent }}% od każdej transakcji jako opłatę za obsługę platformy.</p>
             {% else %}
                 <button class="explore-btn" onclick="openModal('signUpModal')">Zacznij publikować</button>
             {% endif %}
