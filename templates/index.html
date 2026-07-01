@@ -4,28 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LayerHub - Modele i Blueprinty 3D</title>
-    
-    <!-- SKRYPTY PRZENIESIONE NA GÓRĘ, ABY UNIKNĄĆ BŁĘDU NOT DEFINED -->
-    <script>
-        function openModal(modalId) {
-            var m = document.getElementById(modalId);
-            if (m) { 
-                m.style.display = "block"; 
-            } else {
-                console.error("Nie znaleziono okna o ID: " + modalId);
-            }
-        }
-        function closeModal(modalId) {
-            var m = document.getElementById(modalId);
-            if (m) { m.style.display = "none"; }
-        }
-        window.onclick = function(e) {
-            if (e.target.classList.contains('modal')) {
-                e.target.style.display = "none";
-            }
-        }
-    </script>
-
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0a0f0d; color: #e2e8f0; margin: 0; padding: 0; text-align: center; }
         header { background-color: #111c17; color: #10b981; padding: 45px 20px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.1); position: relative; border-bottom: 2px solid #047857; }
@@ -55,7 +33,6 @@
         .projects-heading { color: #10b981; text-shadow: 0 0 10px rgba(16, 185, 129, 0.2); margin-top: 20px; }
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; }
         .project-card { background-color: #111827; border: 1px solid #1f2937; border-top: 4px solid #047857; border-radius: 10px; padding: 25px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s; }
-        .project-card:hover { transform: translateY(-5px); border-top-color: #10b981; box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15); }
         .project-card h3 { color: #10b981; margin-top: 0; font-size: 1.3em; }
         .project-card p { color: #94a3b8; font-size: 0.95em; line-height: 1.5; margin-bottom: 15px; }
         .download-btn { display: block; text-align: center; background-color: #1f2937; color: #10b981; border: 1px solid #047857; padding: 10px; border-radius: 6px; text-decoration: none; font-weight: bold; transition: all 0.2s; cursor: pointer; width: 100%; box-sizing: border-box; }
@@ -71,11 +48,6 @@
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: bold; color: #10b981; }
         .form-group input { width: 100%; padding: 12px; box-sizing: border-box; background-color: #1f2937; border: 1px solid #4b5563; border-radius: 6px; font-size: 1em; color: white; }
-        .submit-btn { width: 100%; color: white; border: none; padding: 12px; font-size: 1.1em; font-weight: bold; border-radius: 6px; cursor: pointer; }
-        .submit-signup { background-color: #10b981; }
-        .submit-signup:hover { background-color: #059669; }
-        .submit-login { background-color: #047857; border: 1px solid #10b981; }
-        .submit-login:hover { background-color: #065f46; }
     </style>
 </head>
 <body>
@@ -149,3 +121,32 @@
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
+            <h2 style="color: #10b981; margin-top: 0;">Zaloguj się</h2>
+            <form action="/login" method="POST">
+                <div class="form-group">
+                    <label>Nickname:</label>
+                    <input type="text" name="nickname" required>
+                </div>
+                <div class="form-group">
+                    <label>Hasło:</label>
+                    <input type="password" name="password" required>
+                </div>
+                <button type="submit" class="btn signup-btn" style="width: 100%;">Zaloguj</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL REJESTRACJI -->
+    <div id="signUpModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('signUpModal')">&times;</span>
+            <h2 style="color: #10b981; margin-top: 0;">Zarejestruj się</h2>
+            <form action="/register" method="POST">
+                <div class="form-group">
+                    <label>Twój Nickname:</label>
+                    <input type="text" name="nickname" required>
+                </div>
+                <div class="form-group">
+                    <label>Hasło:</label>
+                    <input type="password" name="password" required>
+                </div>
